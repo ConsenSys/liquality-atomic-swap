@@ -40,7 +40,7 @@
     "immutability-helper": "^2.7.1",
     "install": "^0.12.2",
     "lodash": "^4.17.15",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "npm": "^6.10.3",
     "prop-types": "^15.6.2",
     "puppeteer": "^2.0.0",
