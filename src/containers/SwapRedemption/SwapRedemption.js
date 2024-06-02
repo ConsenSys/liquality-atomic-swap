@@ -8,6 +8,25 @@ import TransactionDetails from '../../components/TransactionDetails'
 import './SwapRedemption.css'
 
 class SwapRedemption extends Component {
+  constructor (props) {
+    super(props)
+
+    this.redeemButtonState = true // active by default
+    this.redeemButtonClickWithTimeout = this.redeemButtonClickWithTimeout.bind(this)
+  }
+
+  redeemButtonClickWithTimeout () {
+    if (this.redeemButtonState) {
+      this.redeemButtonState = false // inactive
+
+      this.props.redeemSwap()
+
+      setTimeout(() => {
+        this.redeemButtonState = true // reactive it
+      }, 2000)
+    }
+  }
+
   render () {
     const errors = getClaimErrors(this.props.transactions, this.props.isPartyB)
     const claimCurrency = cryptoassets[this.props.assets.b.currency]
@@ -20,7 +39,7 @@ class SwapRedemption extends Component {
           Connect the account that you provided as <br /> {claimCurrency.code} receiving address
           </p>
           <p className='SwapRedemption_buttonWrap'>
-            {!errors.claim && <Button className='SwapRedemption_claimButton mt-5' wide primary loadingMessage={this.props.loadingMessage} onClick={() => this.props.redeemSwap()}>Claim {this.props.assets.b.value.toFixed()} {claimCurrency.code}</Button>}
+            {!errors.claim && <Button disabled={!this.redeemButtonState} className='SwapRedemption_claimButton mt-5' wide primary loadingMessage={this.props.loadingMessage} onClick={() => this.redeemButtonClickWithTimeout}>Claim {this.props.assets.b.value.toFixed()} {claimCurrency.code}</Button>}
             {errors.claim && <div className='SwapRedemption_errorMessage'>{errors.claim}</div>}
           </p>
         </div>

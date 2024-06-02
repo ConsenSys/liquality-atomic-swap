@@ -5,6 +5,25 @@ import { assets as cryptoassets } from '@liquality/cryptoassets'
 import './SwapRefund.css'
 
 class SwapRedemption extends Component {
+  constructor (props) {
+    super(props)
+
+    this.claimButtonState = true // active by default
+    this.claimButtonClickWithTimeout = this.claimButtonClickWithTimeout.bind(this)
+  }
+
+  claimButtonClickWithTimeout () {
+    if (this.claimButtonState) {
+      this.claimButtonState = false // inactive
+
+      this.props.refundSwap()
+
+      setTimeout(() => {
+        this.claimButtonState = true // reactive it
+      }, 2000)
+    }
+  }
+
   render () {
     return <div>
       <BrandCard className='SwapRefund' title='RECLAIM YOUR ASSETS'>
@@ -15,7 +34,7 @@ class SwapRedemption extends Component {
           </p>
           <p>To process this refund, press the reclaim button.</p>
         </div>
-        <p><Button wide primary loadingMessage={this.props.loadingMessage} onClick={this.props.refundSwap}>Reclaim</Button></p>
+        <p><Button disabled={!this.claimButtonState} wide primary loadingMessage={this.props.loadingMessage} onClick={this.claimButtonClickWithTimeout}>Reclaim</Button></p>
         <div className='SwapRefund_expiredFrame'>
           <div className='SwapRefund_expiredFrame_content'>
 
