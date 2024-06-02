@@ -71,7 +71,7 @@ const wallets = {
 }
 
 function getAvailableEthereumWallets (asset) {
-  const wallets = ['metamask', 'ethereum_ledger']
+  const wallets = ['liquality', 'metamask', 'ethereum_ledger']
   const assetConfig = config.assets[asset]
   if (!assetConfig) return []
   if (assetConfig.rpc && assetConfig.rpc.wallet) {

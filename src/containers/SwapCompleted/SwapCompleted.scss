@@ -36,6 +36,9 @@
     }
     padding-left: 40px;
     z-index: $layer-top;
+    img {
+      padding-left: 5px;
+    }
   }
 
   &_receivedAmount {
